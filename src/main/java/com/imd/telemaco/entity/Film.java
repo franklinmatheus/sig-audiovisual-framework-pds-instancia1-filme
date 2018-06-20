@@ -92,4 +92,16 @@ public class Film extends Audiovisual {
     public int getDuration() {
         return duration;
     }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 }

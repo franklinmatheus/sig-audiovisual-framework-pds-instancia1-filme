@@ -6,16 +6,17 @@
 
 <%@page import="com.imd.telemaco.entity.User"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.imd.telemaco.entity.Series"%>
+<%@page import="com.imd.telemaco.entity.Film"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     User logged = new User();
-    if(session.getAttribute("logged") == null)
+    if (session.getAttribute("logged") == null) {
         response.sendRedirect("Login.jsp");
-    else
+    } else {
         logged = (User) (session.getAttribute("logged"));
+    }
 %>
 <html>
     <head>
@@ -24,18 +25,18 @@
     </head>
     <body>
         <%
-        	ArrayList<Series> results = (ArrayList<Series>) session.getAttribute("results");
-                    
-                    if(results == null) {
+            ArrayList<Film> results = (ArrayList<Film>) session.getAttribute("results");
+
+            if (results == null) {
         %>
-                    <p>No results, <a href="Logged.jsp"> return no home page </a></p>
-                <%
-                	} else {
-                                for(Series result : results) {
-                %>
-                    <p><a href="SelectSerie?id=<%=result.getId()%>"> <%=result.getName() %> </a></p>
-                <%
-                }    
+        <p>No results, <a href="Logged.jsp"> return no home page </a></p>
+        <%
+        } else {
+            for (Film result : results) {
+        %>
+        <p><a href="SelectFilm?id=<%=result.getId()%>"> <%=result.getName()%> </a></p>
+        <%
+                }
             }
         %>
     </body>

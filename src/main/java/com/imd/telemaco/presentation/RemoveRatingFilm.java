@@ -6,7 +6,10 @@
 package com.imd.telemaco.presentation;
 
 import com.imd.telemaco.business.FilmServices;
+import com.imd.telemaco.business.exception.DatabaseException;
 import com.imd.telemaco.presentation.audiovisual.RemoveRatingAudiovisual;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +19,10 @@ public class RemoveRatingFilm extends RemoveRatingAudiovisual {
 
     @Override
     public void init() {
-        this.services = new FilmServices();
+        try {
+            this.services = new FilmServices();
+        } catch (DatabaseException ex) {
+            Logger.getLogger(RemoveRatingFilm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

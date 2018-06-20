@@ -9,9 +9,9 @@ import com.imd.telemaco.business.exception.AudiovisualInvalidException;
 import com.imd.telemaco.business.exception.BusinessException;
 import com.imd.telemaco.business.exception.CloseConnectionException;
 import com.imd.telemaco.business.exception.DatabaseException;
-import com.imd.telemaco.data.AudiovisualDAO;
 import com.imd.telemaco.data.FilmDAO;
 import com.imd.telemaco.entity.Audiovisual;
+import com.imd.telemaco.entity.Film;
 import java.util.ArrayList;
 
 /**
@@ -20,19 +20,15 @@ import java.util.ArrayList;
  */
 public final class FilmServices extends AudiovisualServices {
 
-    public FilmServices() {
-        this.initialize();
-    }
-    
-    @Override
-    public void initialize() {
-        AudiovisualDAO dao = new FilmDAO();
-        this.setAudiovisualDAO(dao);
+    public FilmServices() throws DatabaseException {
+        this.audiovisualDAO = new FilmDAO();
     }
 
     @Override
     public void validate(Audiovisual audiovisual) throws AudiovisualInvalidException, DatabaseException, CloseConnectionException, BusinessException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Film program = (Film) this.audiovisualDAO.select(audiovisual.getName());
+        if(program != null)
+            throw new BusinessException("Já existe outro programa com esse nome!");
     }
 
     @Override
